@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Uğur Böceği</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+
+<body
+  id="body"
+  class="min-h-screen text-[#2b1b12] bg-gradient-to-br from-[#fff5f5] via-[#fffdf8] to-[#ffe8e8]"
+  style="font-family: 'Poppins', sans-serif;"
+>
+
+  <!-- BACKGROUND -->
+
+  <div class="fixed top-0 left-0 w-[500px] h-[500px] bg-red-300 blur-[140px] opacity-20 rounded-full"></div>
+  <div class="fixed bottom-0 right-0 w-[500px] h-[500px] bg-pink-200 blur-[140px] opacity-20 rounded-full"></div>
+
+  <!-- FLOATING LADYBUGS -->
+
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+
+    <div class="absolute top-10 left-10 text-5xl animate-bounce">
+      🐞
+    </div>
+
+    <div class="absolute top-40 right-20 text-6xl animate-pulse">
+      🐞
+    </div>
+
+    <div class="absolute bottom-20 left-20 text-4xl animate-bounce">
+      🐞
+    </div>
+
+    <div class="absolute bottom-32 right-10 text-7xl animate-pulse">
+      🐞
+    </div>
+
+    <div class="absolute top-1/2 left-1/2 text-8xl opacity-10 ladybug-float">
+      🐞
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-red-100 shadow-sm overflow-hidden">
+
+    <div class="absolute inset-0 opacity-5 text-6xl flex justify-around items-center pointer-events-none">
+      <span>🐞</span>
+      <span>🐞</span>
+      <span>🐞</span>
+      <span>🐞</span>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-5 flex flex-col lg:flex-row items-center justify-between gap-5">
+
+      <div class="flex items-center gap-4">
+
+        <div
+          id="logoBox"
+          class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-black flex items-center justify-center text-white text-4xl shadow-xl rotate-3 hover:rotate-0 transition duration-500"
+        >
+          🐞
+        </div>
+
+        <div>
+
+          <h1 id="siteTitleText" class="text-3xl font-black tracking-tight text-[#1a1a1a]">
+            Uğur Böceği
+          </h1>
+
+          <p id="siteSubtitleText" class="text-red-400 text-sm mt-1">
+            Premium Vintage Teknolojiler
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="flex gap-3 w-full lg:w-auto">
+
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Ürün ara..."
+          class="w-full lg:w-80 rounded-2xl border border-red-100 bg-white/70 backdrop-blur-xl px-5 py-3 outline-none focus:ring-2 focus:ring-red-300"
+        />
+
+        <button
+          onclick="openLogin()"
+          class="rounded-2xl bg-gradient-to-r from-red-500 to-black px-6 py-3 text-white font-bold hover:scale-105 transition duration-300"
+        >
+          Admin
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- MAIN -->
+
+  <main class="relative z-10 max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- PRODUCTS -->
+
+    <section class="lg:col-span-2">
+
+      <div class="mb-10">
+
+        <h2 id="heroMainTitle" class="text-6xl font-black leading-tight mb-6">
+
+          Nostaljik ve
+
+          <span
+            id="heroHighlightText"
+            class="block bg-gradient-to-r from-red-500 to-black bg-clip-text text-transparent"
+          >
+            Premium Teknolojiler
+          </span>
+
+        </h2>
+
+        <p
+          id="heroDescriptionText"
+          class="max-w-2xl text-lg text-gray-600 leading-8"
+        >
+          Uğur böceği konseptli modern retro yaşam ürünleri.
+        </p>
+
+        <div class="mt-10 flex items-center gap-4">
+
+          <div id="heroLogo" class="text-7xl animate-bounce drop-shadow-2xl">
+            🐞
+          </div>
+
+          <div>
+
+            <p class="text-red-500 font-bold uppercase tracking-[6px] text-sm">
+              Premium Vintage Store
+            </p>
+
+            <p class="text-gray-500 mt-2 max-w-md leading-7">
+              Modern tasarım ile nostaljik ürünlerin eşsiz birleşimi.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        id="productList"
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+      ></div>
+
+    </section>
+
+    <!-- CART -->
+
+    <aside>
+
+      <div class="sticky top-28 rounded-3xl bg-white/70 backdrop-blur-xl border border-white shadow-2xl p-6">
+
+        <div class="flex items-center justify-between mb-6">
+
+          <h3 class="text-3xl font-black flex items-center gap-3">
+            🐞 Sepet
+          </h3>
+
+          <div
+            id="cartCount"
+            class="rounded-full bg-gradient-to-r from-red-500 to-black px-4 py-2 text-white font-bold"
+          >
+            0
+          </div>
+
+        </div>
+
+        <div id="cartItems" class="space-y-4"></div>
+
+        <div class="flex items-center justify-between border-t pt-5 text-xl font-black mt-5">
+          <span>Toplam</span>
+          <span id="totalPrice">₺0</span>
+        </div>
+
+        <a
+          id="whatsappBtn"
+          href="#"
+          target="_blank"
+          class="block w-full rounded-2xl bg-gradient-to-r from-green-500 to-green-700 py-4 text-center text-white font-extrabold tracking-wide hover:scale-105 transition duration-300 mt-5"
+        >
+          WhatsApp Sipariş Gönder
+        </a>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="relative z-10 mt-20 border-t border-red-100 bg-white/40 backdrop-blur-xl">
+
+    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col lg:flex-row items-center justify-between gap-5">
+
+      <div>
+
+        <h3 class="text-2xl font-black flex items-center gap-3">
+          🐞 Uğur Böceği
+        </h3>
+
+        <p id="footerTextDisplay" class="text-sm text-gray-500 mt-2">
+          Modern retro yaşam ürünleri.
+        </p>
+
+      </div>
+
+      <div class="flex gap-5 text-3xl opacity-70">
+
+        <span class="hover:scale-125 transition">
+          🐞
+        </span>
+
+        <span class="hover:scale-125 transition">
+          ❤️
+        </span>
+
+        <span class="hover:scale-125 transition">
+          ✨
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- LOGIN PANEL -->
+
+  <div id="loginPanel" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-5">
+
+    <div class="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
+
+      <div class="text-center mb-8">
+
+        <div class="text-7xl mb-4 animate-bounce">
+          🐞
+        </div>
+
+        <h2 class="text-4xl font-black">
+          Admin Giriş
+        </h2>
+
+      </div>
+
+      <div class="space-y-4">
+
+        <input
+          id="adminPassword"
+          type="password"
+          placeholder="Şifre"
+          class="w-full rounded-2xl border border-gray-200 px-5 py-4"
+        >
+
+        <button
+          onclick="loginAdmin()"
+          class="w-full rounded-2xl bg-gradient-to-r from-red-500 to-black py-4 text-white font-bold"
+        >
+          Giriş Yap
+        </button>
+
+        <button
+          onclick="closeLogin()"
+          class="w-full rounded-2xl border border-gray-200 py-4 font-semibold"
+        >
+          Kapat
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ADMIN PANEL -->
+
+  <div id="adminPanel" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-5 overflow-auto">
+
+    <div class="w-full max-w-5xl rounded-3xl bg-white p-8 shadow-2xl max-h-[95vh] overflow-auto">
+
+      <div class="flex items-center justify-between mb-8">
+
+        <h2 class="text-4xl font-black flex items-center gap-3">
+          🐞 Site Yönetimi
+        </h2>
+
+        <button
+          onclick="closeAdmin()"
+          class="rounded-2xl bg-red-500 px-5 py-3 text-white font-bold"
+        >
+          Kapat
+        </button>
+
+      </div>
+
+      <!-- SETTINGS -->
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+
+        <input id="siteTitle" type="text" placeholder="Site Başlığı"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="siteSubtitle" type="text" placeholder="Alt Başlık"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="heroTitle" type="text" placeholder="Hero Başlık"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="heroHighlight" type="text" placeholder="Hero Vurgulu Başlık"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="logoEmoji" type="text" placeholder="Logo Emoji"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="whatsappNumberInput" type="text" placeholder="WhatsApp Numara"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="footerText" type="text" placeholder="Footer Yazısı"
+          class="rounded-2xl border px-4 py-4">
+
+        <input id="backgroundColor" type="color"
+          class="h-14 rounded-2xl border px-4 py-2">
+
+      </div>
+
+      <textarea
+        id="heroDescription"
+        placeholder="Açıklama"
+        class="w-full rounded-2xl border px-4 py-4 mb-8 min-h-[120px]"
+      ></textarea>
+
+      <button
+        onclick="saveSettings()"
+        class="w-full rounded-2xl bg-gradient-to-r from-red-500 to-black py-4 text-white font-bold hover:scale-105 transition"
+      >
+        Ayarları Kaydet
+      </button>
+
+      <!-- PRODUCT ADD -->
+
+      <div class="mt-14 border-t pt-10">
+
+        <h3 class="text-3xl font-black mb-6">
+          🐞 Ürün Ekle
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <input id="name" type="text" placeholder="Ürün Adı"
+            class="rounded-2xl border px-4 py-4">
+
+          <input id="category" type="text" placeholder="Kategori"
+            class="rounded-2xl border px-4 py-4">
+
+          <input id="price" type="number" placeholder="Fiyat"
+            class="rounded-2xl border px-4 py-4">
+
+          <input id="image" type="text" placeholder="Görsel URL"
+            class="rounded-2xl border px-4 py-4">
+
+        </div>
+
+        <button
+          onclick="addProduct()"
+          class="mt-6 w-full rounded-2xl bg-gradient-to-r from-green-500 to-green-700 py-4 text-white font-bold hover:scale-105 transition"
+        >
+          Ürün Ekle
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+
+  <script>
+
+    let products = [
+      {
+        id: 1,
+        name: 'Mini Blender',
+        category: 'Mutfak',
+        price: 2499,
+        image: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?q=80&w=1200&auto=format&fit=crop'
+      },
+      {
+        id: 2,
+        name: 'Robot Süpürge',
+        category: 'Temizlik',
+        price: 7499,
+        image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?q=80&w=1200&auto=format&fit=crop'
+      },
+      {
+        id: 3,
+        name: 'Kahve Makinesi',
+        category: 'Kahve',
+        price: 3899,
+        image: 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?q=80&w=1200&auto=format&fit=crop'
+      }
+    ];
+
+    let cart = [];
+    let whatsappNumber = '905555555555';
+
+    function renderProducts(filter = '') {
+
+      const productList = document.getElementById('productList');
+
+      productList.innerHTML = '';
+
+      const filtered = products.filter(product =>
+        product.name.toLowerCase().includes(filter.toLowerCase()) ||
+        product.category.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      filtered.forEach(product => {
+
+        productList.innerHTML += `
+          <div class="group relative overflow-hidden rounded-3xl bg-white/80 backdrop-blur-xl border border-white shadow-xl hover:-translate-y-2 hover:shadow-2xl transition duration-500">
+
+            <div class="absolute top-3 right-3 text-2xl opacity-0 group-hover:opacity-100 transition duration-500 animate-bounce">
+              🐞
+            </div>
+
+            <div class="h-64 overflow-hidden">
+
+              <img
+                src="${product.image}"
+                alt="${product.name}"
+                class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+              >
+
+            </div>
+
+            <div class="p-5">
+
+              <div class="flex items-start justify-between gap-3 mb-4">
+
+                <div>
+
+                  <div class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-500 mb-3">
+                    ${product.category}
+                  </div>
+
+                  <h3 class="text-xl font-black">
+                    ${product.name}
+                  </h3>
+
+                </div>
+
+                <div class="rounded-2xl bg-yellow-100 px-3 py-2 text-sm font-black text-yellow-700">
+                  ₺${product.price}
+                </div>
+
+              </div>
+
+              <button
+                onclick="addToCart(${product.id})"
+                class="w-full rounded-2xl bg-gradient-to-r from-red-500 to-black py-4 text-white font-extrabold tracking-wide hover:scale-105 transition duration-300"
+              >
+                Sepete Ekle
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      });
+
+    }
+
+    function addToCart(id) {
+
+      const product = products.find(item => item.id === id);
+
+      cart.push(product);
+
+      renderCart();
+
+    }
+
+    function removeFromCart(index) {
+
+      cart.splice(index, 1);
+
+      renderCart();
+
+    }
+
+    function renderCart() {
+
+      const cartItems = document.getElementById('cartItems');
+      const totalPrice = document.getElementById('totalPrice');
+      const cartCount = document.getElementById('cartCount');
+      const whatsappBtn = document.getElementById('whatsappBtn');
+
+      cartItems.innerHTML = '';
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+
+        total += item.price;
+
+        cartItems.innerHTML += `
+          <div class="flex items-center justify-between gap-3 rounded-2xl bg-gray-50 p-4">
+
+            <div>
+              <h4 class="font-bold">${item.name}</h4>
+              <p class="text-sm text-gray-500 mt-1">₺${item.price}</p>
+            </div>
+
+            <button
+              onclick="removeFromCart(${index})"
+              class="rounded-xl bg-red-100 px-3 py-2 text-red-500 font-semibold hover:bg-red-200 transition"
+            >
+              Çıkar
+            </button>
+
+          </div>
+        `;
+
+      });
+
+      totalPrice.innerText = `₺${total}`;
+      cartCount.innerText = cart.length;
+
+      const message = encodeURIComponent(
+        'Merhaba, sipariş vermek istiyorum.\n\n' +
+        cart.map(item => `${item.name} - ₺${item.price}`).join('\n') +
+        `\n\nToplam: ₺${total}`
+      );
+
+      whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    }
+
+    function openLogin() {
+
+      document.getElementById('loginPanel').classList.remove('hidden');
+      document.getElementById('loginPanel').classList.add('flex');
+
+    }
+
+    function closeLogin() {
+
+      document.getElementById('loginPanel').classList.remove('flex');
+      document.getElementById('loginPanel').classList.add('hidden');
+
+    }
+
+    function openAdmin() {
+
+      document.getElementById('adminPanel').classList.remove('hidden');
+      document.getElementById('adminPanel').classList.add('flex');
+
+    }
+
+    function closeAdmin() {
+
+      document.getElementById('adminPanel').classList.remove('flex');
+      document.getElementById('adminPanel').classList.add('hidden');
+
+    }
+
+    function loginAdmin() {
+
+      const password = document.getElementById('adminPassword').value;
+
+      if(password === '12345') {
+
+        closeLogin();
+        openAdmin();
+
+      } else {
+
+        alert('Şifre yanlış');
+
+      }
+
+    }
+
+    function addProduct() {
+
+      const name = document.getElementById('name').value;
+      const category = document.getElementById('category').value;
+      const price = document.getElementById('price').value;
+      const image = document.getElementById('image').value;
+
+      if(!name || !category || !price || !image) {
+
+        alert('Tüm alanları doldurun');
+        return;
+
+      }
+
+      products.unshift({
+        id: Date.now(),
+        name,
+        category,
+        price: Number(price),
+        image
+      });
+
+      renderProducts();
+
+      document.getElementById('name').value = '';
+      document.getElementById('category').value = '';
+      document.getElementById('price').value = '';
+      document.getElementById('image').value = '';
+
+      alert('Ürün eklendi');
+
+    }
+
+    function saveSettings() {
+
+      const siteTitle = document.getElementById('siteTitle').value;
+      const siteSubtitle = document.getElementById('siteSubtitle').value;
+      const heroTitle = document.getElementById('heroTitle').value;
+      const heroHighlight = document.getElementById('heroHighlight').value;
+      const heroDescription = document.getElementById('heroDescription').value;
+      const logoEmoji = document.getElementById('logoEmoji').value;
+      const whatsapp = document.getElementById('whatsappNumberInput').value;
+      const footerText = document.getElementById('footerText').value;
+      const bgColor = document.getElementById('backgroundColor').value;
+
+      if(siteTitle) {
+
+        document.getElementById('siteTitleText').innerText = siteTitle;
+        document.title = siteTitle;
+
+      }
+
+      if(siteSubtitle) {
+
+        document.getElementById('siteSubtitleText').innerText = siteSubtitle;
+
+      }
+
+      if(heroTitle) {
+
+        document.getElementById('heroMainTitle').childNodes[0].textContent = heroTitle;
+
+      }
+
+      if(heroHighlight) {
+
+        document.getElementById('heroHighlightText').innerText = heroHighlight;
+
+      }
+
+      if(heroDescription) {
+
+        document.getElementById('heroDescriptionText').innerText = heroDescription;
+
+      }
+
+      if(logoEmoji) {
+
+        document.getElementById('logoBox').innerText = logoEmoji;
+        document.getElementById('heroLogo').innerText = logoEmoji;
+
+      }
+
+      if(whatsapp) {
+
+        whatsappNumber = whatsapp;
+
+      }
+
+      if(footerText) {
+
+        document.getElementById('footerTextDisplay').innerText = footerText;
+
+      }
+
+      if(bgColor) {
+
+        document.getElementById('body').style.background = bgColor;
+
+      }
+
+      alert('Ayarlar kaydedildi');
+
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      renderProducts(e.target.value);
+    });
+
+    renderProducts();
+    renderCart();
+
+  </script>
+
+  <!-- ANIMATION -->
+
+  <style>
+
+    @keyframes floatLadybug {
+
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(10deg);
+      }
+
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+    }
+
+    .ladybug-float {
+      animation: floatLadybug 4s ease-in-out infinite;
+    }
+
+  </style>
+
+</body>
+
+</html>
