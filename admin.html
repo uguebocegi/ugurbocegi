@@ -1,30 +1,131 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Giriş</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Giriş - Uğur Böceği</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e55555;
+        }
+
+        .info-text {
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .info-text a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
-<body style="font-family:Arial;text-align:center;padding-top:100px">
+<body>
 
-<h2>🐞 Uğur Böceği Admin Giriş</h2>
+<div class="login-container">
+    <h2>🐞 Uğur Böceği Admin Giriş</h2>
+    
+    <div class="input-group">
+        <input id="pass" type="password" placeholder="Şifreyi Giriniz" autofocus>
+    </div>
+    
+    <button onclick="login()">🔓 Giriş Yap</button>
 
-<input id="pass" type="password" placeholder="Şifre" style="padding:10px">
-<br><br>
-
-<button onclick="login()" style="padding:10px 20px">Giriş Yap</button>
+    <div class="info-text">
+        <strong>Demo Şifre:</strong> 1234<br>
+        <a href="index.html">← Ana Sayfaya Dön</a>
+    </div>
+</div>
 
 <script>
 function login(){
-const pass = document.getElementById("pass").value;
+    const pass = document.getElementById("pass").value;
 
-if(pass === "1234"){
-window.location.href = "admin-panel.html";
-}else{
-alert("Hatalı şifre");
+    if(pass === "1234"){
+        window.location.href = "admin-panel.html";
+    } else {
+        alert("❌ Hatalı şifre! Lütfen tekrar deneyin.\n\nDemo şifre: 1234");
+        document.getElementById("pass").value = "";
+        document.getElementById("pass").focus();
+    }
 }
-}
+
+// Enter tuşu ile giriş
+document.getElementById("pass").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        login();
+    }
+});
 </script>
 
 </body>
