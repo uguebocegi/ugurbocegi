@@ -6,24 +6,34 @@
 <title>Admin Panel</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h2>Admin Panel</h2>
+<h2>🐞 Admin Panel</h2>
 
-<input id="pass" type="password" placeholder="Şifre">
-<button onclick="login()">Giriş</button>
+<!-- LOGIN -->
+<div id="loginBox">
+  <input id="pass" type="password" placeholder="Şifre">
+  <button onclick="login()">Giriş</button>
+</div>
 
-<hr>
+<!-- PANEL -->
+<div id="adminPanel" style="display:none;">
 
 <h3>Ürün Ekle</h3>
+
 <input id="p_name" placeholder="Ürün">
 <input id="p_price" placeholder="Fiyat">
-<input id="p_img" placeholder="Görsel">
+<input id="p_img" placeholder="Resim URL">
+
 <button onclick="addProduct()">Ekle</button>
 
 <hr>
 
+<h3>Ürünler</h3>
 <div id="adminProducts"></div>
+
+</div>
 
 <script src="js/storage.js"></script>
 <script src="js/admin.js"></script>
