@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Uğur Böceği</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div id="ladybug-background"></div>
+
+<header class="site-header">
+
+<div class="container">
+
+<div class="logo-area">
+
+<div class="logo-icon">
+🐞
+</div>
+
+<div>
+<h1 id="siteTitle">Uğur Böceği</h1>
+<p id="siteSubtitle">
+Pratik Ev Aletleri
+</p>
+</div>
+
+</div>
+
+<div class="header-actions">
+
+<input
+id="searchInput"
+type="text"
+placeholder="Ürün ara..."
+
+>
+
+<button onclick="openCart()">
+Sepet
+</button>
+
+<a href="admin.html">
+Admin
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-content">
+
+<h2 id="heroTitle">
+Hayatı Kolaylaştıran
+<span id="heroHighlight">
+Pratik Ev Aletleri
+</span>
+</h2>
+
+<p id="heroDescription">
+
+Uğur Böceği mağazasında
+şık ve kullanışlı ürünleri keşfedin.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="products">
+
+<div class="container">
+
+<div id="productList"
+class="products-grid">
+</div>
+
+</div>
+
+</section>
+
+<div id="cartPanel" class="cart-panel">
+
+<div class="cart-header">
+
+<h3>Sepet</h3>
+
+<button onclick="closeCart()">
+✕
+</button>
+
+</div>
+
+<div id="cartItems">
+</div>
+
+<div class="cart-footer">
+
+<div class="cart-total">
+
+Toplam: <span id="totalPrice">
+₺0 </span>
+
+</div>
+
+<a
+id="whatsappBtn"
+target="_blank">
+
+WhatsApp Sipariş Gönder
+
+</a>
+
+</div>
+
+</div>
+
+<section class="location-section">
+
+<div class="container">
+
+<h2>
+Mağaza Konumu
+</h2>
+
+<div class="map-wrapper">
+
+<iframe
+id="storeMap"
+src="https://www.google.com/maps?q=Bolu+Merkez&output=embed"
+allowfullscreen
+loading="lazy">
+</iframe>
+
+</div>
+
+<div class="contact-cards">
+
+<div class="contact-card">
+
+<h3>Telefon</h3>
+
+<p id="storePhoneText">
+0555 394 72 89
+</p>
+
+</div>
+
+<div class="contact-card">
+
+<h3>E-Posta</h3>
+
+<p id="storeEmailText">
+info@ugurbocegi.com
+</p>
+
+</div>
+
+<div class="contact-card">
+
+<h3>Adres</h3>
+
+<p id="storeLocationText">
+Bolu Merkez
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="ladybug-row">
+
+🐞 🐞 🐞 🐞 🐞 🐞 🐞
+
+</div>
+
+<p>
+© Uğur Böceği
+</p>
+
+</footer>
+
+<script src="js/storage.js"></script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
