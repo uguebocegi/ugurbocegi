@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+</head>
+
+<body style="font-family:Arial">
+
+<h2>🐞 Admin Panel</h2>
+
+<h3>Ürün Ekle</h3>
+
+<input id="name" placeholder="Ürün">
+<input id="price" placeholder="Fiyat">
+<input id="img" placeholder="Resim">
+
+<button onclick="add()">Ekle</button>
+
+<hr>
+
+<div id="list"></div>
+
+<script>
+
+let products = JSON.parse(localStorage.getItem("products")) || [];
+
+function save(){
+localStorage.setItem("products",JSON.stringify(products));
+}
+
+function add(){
+products.push({
+name:document.getElementById("name").value,
+price:document.getElementById("price").value,
+img:document.getElementById("img").value
+});
+
+save();
+render();
+}
+
+function del(i){
+products.splice(i,1);
+save();
+render();
+}
+
+function render(){
+let box=document.getElementById("list");
+box.innerHTML="";
+
+products.forEach((p,i)=>{
+box.innerHTML+=`
+<p>
+${p.name} - ${p.price}
+<button onclick="del(${i})">Sil</button>
+</p>`;
+});
+}
+
+render();
+
+</script>
+
+</body>
+</html>
