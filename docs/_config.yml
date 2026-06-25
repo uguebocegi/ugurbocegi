@@ -1,9 +1,1 @@
-theme: jekyll-theme-primer
-title: Ugur Bocegi
-description: Personal website and portfolio
-url: "https://uguebocegi.github.io"
-baseurl: "/ugurbocegi"
-
-# Jekyll settings
-markdown: kramdown
-highlighter: rouge
+# GitHub Pages Configuration - Disabled Jekyll for static HTML
