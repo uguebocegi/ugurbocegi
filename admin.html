@@ -3,40 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Admin Giriş</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding-top:100px">
 
-<h2>🐞 Admin Panel</h2>
+<h2>🐞 Uğur Böceği Admin Giriş</h2>
 
-<!-- LOGIN -->
-<div id="loginBox">
-  <input id="pass" type="password" placeholder="Şifre">
-  <button onclick="login()">Giriş</button>
-</div>
+<input id="pass" type="password" placeholder="Şifre" style="padding:10px">
+<br><br>
 
-<!-- PANEL -->
-<div id="adminPanel" style="display:none;">
+<button onclick="login()" style="padding:10px 20px">Giriş Yap</button>
 
-<h3>Ürün Ekle</h3>
+<script>
+function login(){
+const pass = document.getElementById("pass").value;
 
-<input id="p_name" placeholder="Ürün">
-<input id="p_price" placeholder="Fiyat">
-<input id="p_img" placeholder="Resim URL">
-
-<button onclick="addProduct()">Ekle</button>
-
-<hr>
-
-<h3>Ürünler</h3>
-<div id="adminProducts"></div>
-
-</div>
-
-<script src="js/storage.js"></script>
-<script src="js/admin.js"></script>
+if(pass === "1234"){
+window.location.href = "admin-panel.html";
+}else{
+alert("Hatalı şifre");
+}
+}
+</script>
 
 </body>
 </html>
