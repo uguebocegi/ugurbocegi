@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uğur Böceği</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uğur Böceği Mağaza</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header>
-<h1>🐞 Uğur Böceği Mağaza</h1>
-<a href="admin.html">Admin</a>
+    <h1>🐞 Uğur Böceği Mağaza</h1>
+    <a href="admin.html" target="_blank">Admin Paneli</a>
 </header>
-<a href="admin.html" target="_blank">Admin</a>
+
 <div class="container">
-<div id="productList"></div>
+    <div id="productList"></div>
 </div>
 
 <div id="cart">
-<h3>Sepet</h3>
-<div id="cartItems"></div>
-<p id="total"></p>
-<button onclick="sendWhatsApp()">WhatsApp Sipariş</button>
+    <h3>🛒 Sepet</h3>
+    <div id="cartItems"></div>
+    <p id="total">Toplam: 0 ₺</p>
+    <button onclick="sendWhatsApp()">📱 WhatsApp Sipariş</button>
 </div>
 
 <script src="js/storage.js"></script>

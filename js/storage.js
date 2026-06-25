@@ -1,29 +1,18 @@
+// LocalStorage yönetimi
 const Storage = {
-
-getProducts(){
-return JSON.parse(localStorage.getItem("products")) || [];
-},
-
-saveProducts(p){
-localStorage.setItem("products", JSON.stringify(p));
-},
-
-getCart(){
-return JSON.parse(localStorage.getItem("cart")) || [];
-},
-
-saveCart(c){
-localStorage.setItem("cart", JSON.stringify(c));
-},
-
-getSettings(){
-return JSON.parse(localStorage.getItem("settings")) || {
-phone:"905553947289"
-};
-},
-
-saveSettings(s){
-localStorage.setItem("settings", JSON.stringify(s));
-}
-
+    getProducts: function() {
+        return JSON.parse(localStorage.getItem("products")) || [];
+    },
+    
+    saveProducts: function(products) {
+        localStorage.setItem("products", JSON.stringify(products));
+    },
+    
+    getCart: function() {
+        return JSON.parse(localStorage.getItem("cart")) || [];
+    },
+    
+    saveCart: function(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
 };
