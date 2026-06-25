@@ -1,0 +1,9 @@
+theme: jekyll-theme-primer
+source: .
+destination: _site
+
+# GitHub Pages settings
+title: Ugur Bocegi
+description: ""
+url: ""
+baseurl: ""
