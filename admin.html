@@ -1,14 +1,32 @@
-function checkAdmin() {
-  const pass = document.getElementById("pass");
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-  if (!pass) {
-    alert("Şifre input bulunamadı");
-    return;
-  }
+<h2>Admin Panel</h2>
 
-  if (pass.value === "1234") {
-    document.getElementById("adminPanel").style.display = "block";
-  } else {
-    alert("Hatalı şifre");
-  }
-}
+<input id="pass" type="password" placeholder="Şifre">
+<button onclick="login()">Giriş</button>
+
+<hr>
+
+<h3>Ürün Ekle</h3>
+<input id="p_name" placeholder="Ürün">
+<input id="p_price" placeholder="Fiyat">
+<input id="p_img" placeholder="Görsel">
+<button onclick="addProduct()">Ekle</button>
+
+<hr>
+
+<div id="adminProducts"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+</html>
