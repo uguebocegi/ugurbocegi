@@ -3,208 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uğur Böceği Giyim</title>
-
-<style>
-body{margin:0;font-family:Arial;background:#fff7f0}
-header{display:flex;justify-content:space-between;align-items:center;padding:15px;background:#b3001b;color:white}
-.container{max-width:1100px;margin:auto;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.1)}
-.card img{width:100%;height:150px;object-fit:cover}
-.card-content{padding:10px}
-button{padding:10px;border:none;border-radius:8px;cursor:pointer}
-.add{background:#b3001b;color:#fff;width:100%}
-.cart{position:fixed;right:0;top:0;width:300px;height:100%;background:#fff;box-shadow:-5px 0 20px rgba(0,0,0,.2);padding:10px;overflow:auto}
-.hidden{display:none}
-
-.adminPanel{
-position:fixed;inset:0;background:rgba(0,0,0,.6);
-display:none;align-items:center;justify-content:center;
-}
-
-.panel{
-background:#fff;padding:20px;width:320px;border-radius:10px;
-}
-</style>
+<title>Uğur Böceği</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <header>
-<div>🐞 Uğur Böceği</div>
-<button onclick="openAdmin()">Admin</button>
+<h1>🐞 Uğur Böceği Mağaza</h1>
+<a href="admin.html">Admin</a>
 </header>
 
 <div class="container">
-<h2>Ürünler</h2>
-<div class="grid" id="productList"></div>
+<div id="productList"></div>
 </div>
 
-<div class="cart" id="cart">
+<div id="cart">
 <h3>Sepet</h3>
 <div id="cartItems"></div>
 <p id="total"></p>
 <button onclick="sendWhatsApp()">WhatsApp Sipariş</button>
 </div>
 
-<div class="adminPanel" id="adminPanel">
-<div class="panel">
-
-<h3>Admin Giriş</h3>
-<input id="pass" type="password" placeholder="Şifre">
-<button onclick="login()">Giriş</button>
-
-<hr>
-
-<h4>Ürün Ekle</h4>
-<input id="p_name" placeholder="Ürün adı">
-<input id="p_price" placeholder="Fiyat">
-<input id="p_img" placeholder="Resim URL">
-<button onclick="addProduct()">Ekle</button>
-
-<hr>
-
-<h4>Ayar</h4>
-<input id="phone" placeholder="WhatsApp numara">
-<button onclick="saveSettings()">Kaydet</button>
-
-<hr>
-
-<h4>Ürünler</h4>
-<div id="adminProducts"></div>
-
-<button onclick="closeAdmin()">Kapat</button>
-
-</div>
-</div>
-
-<script>
-// ================= STORAGE =================
-let products = JSON.parse(localStorage.getItem("products")) || [
-{name:"Blender",price:1500,img:"https://picsum.photos/300?1"},
-{name:"Kahve Makinesi",price:3000,img:"https://picsum.photos/300?2"}
-];
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-let settings = JSON.parse(localStorage.getItem("settings")) || {
-phone:"905553947289"
-};
-
-function save(){
-localStorage.setItem("products",JSON.stringify(products));
-localStorage.setItem("cart",JSON.stringify(cart));
-localStorage.setItem("settings",JSON.stringify(settings));
-}
-
-// ================= ÜRÜN =================
-function render(){
-let box=document.getElementById("productList");
-box.innerHTML="";
-products.forEach((p,i)=>{
-box.innerHTML+=`
-<div class="card">
-<img src="${p.img}">
-<div class="card-content">
-<h4>${p.name}</h4>
-<p>${p.price} TL</p>
-<button class="add" onclick="addCart(${i})">Sepete Ekle</button>
-</div>
-</div>`;
-});
-save();
-}
-
-// ================= SEPET =================
-function addCart(i){
-cart.push(products[i]);
-renderCart();
-save();
-}
-
-function renderCart(){
-let box=document.getElementById("cartItems");
-box.innerHTML="";
-let total=0;
-
-cart.forEach(c=>{
-total+=Number(c.price);
-box.innerHTML+=`<p>${c.name} - ${c.price} TL</p>`;
-});
-
-document.getElementById("total").innerText="Toplam: "+total+" TL";
-}
-
-function sendWhatsApp(){
-let msg="Sipariş:%0A";
-cart.forEach(c=>{
-msg+=c.name+" "+c.price+" TL%0A";
-});
-
-window.open("https://wa.me/"+settings.phone+"?text="+msg);
-}
-
-// ================= ADMIN =================
-function openAdmin(){
-document.getElementById("adminPanel").style.display="flex";
-renderAdmin();
-}
-
-function closeAdmin(){
-document.getElementById("adminPanel").style.display="none";
-}
-
-function login(){
-if(document.getElementById("pass").value==="1234"){
-alert("Giriş başarılı");
-}else{
-alert("Hatalı şifre");
-}
-}
-
-function addProduct(){
-products.push({
-name:document.getElementById("p_name").value,
-price:document.getElementById("p_price").value,
-img:document.getElementById("p_img").value
-});
-
-render();
-renderAdmin();
-}
-
-// ================= ADMIN LIST =================
-function renderAdmin(){
-let box=document.getElementById("adminProducts");
-box.innerHTML="";
-
-products.forEach((p,i)=>{
-box.innerHTML+=`
-<div style="display:flex;justify-content:space-between;margin:5px 0">
-<span>${p.name}</span>
-<button onclick="del(${i})">Sil</button>
-</div>`;
-});
-}
-
-function del(i){
-products.splice(i,1);
-render();
-renderAdmin();
-}
-
-// ================= SETTINGS =================
-function saveSettings(){
-settings.phone=document.getElementById("phone").value;
-save();
-alert("Kaydedildi");
-}
-
-// INIT
-render();
-renderCart();
-</script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
