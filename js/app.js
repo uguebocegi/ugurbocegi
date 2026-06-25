@@ -1,90 +1,51 @@
-// ==========================
-// UĞUR BÖCEĞİ APP.JS
-// ==========================
-
 let cart = Storage.getCart();
 
-function renderProducts() {
-  const products = Storage.getProducts();
-  const box = document.getElementById("products");
+function renderProducts(){
+let products = Storage.getProducts();
+let box = document.getElementById("productList");
+box.innerHTML="";
 
-  box.innerHTML = "";
-
-  products.forEach((p, i) => {
-    box.innerHTML += `
-      <div class="card">
-        <img src="${p.img}" alt="${p.name}">
-        <div class="card-content">
-          <h3>${p.name}</h3>
-          <p>${p.price} TL</p>
-          <button class="add" onclick="addToCart(${i})">
-            Sepete Ekle 🐞
-          </button>
-        </div>
-      </div>
-    `;
-  });
+products.forEach((p,i)=>{
+box.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<p>${p.price} TL</p>
+<button onclick="add(${i})">Sepete Ekle</button>
+</div>`;
+});
 }
 
-function addToCart(index) {
-  const products = Storage.getProducts();
-  const product = products[index];
-
-  cart.push(product);
-  Storage.saveCart(cart);
-
-  renderCart();
+function add(i){
+let products = Storage.getProducts();
+cart.push(products[i]);
+Storage.saveCart(cart);
+renderCart();
 }
 
-function renderCart() {
-  const box = document.getElementById("cartItems");
-  const totalBox = document.getElementById("total");
+function renderCart(){
+let box=document.getElementById("cartItems");
+box.innerHTML="";
+let total=0;
 
-  box.innerHTML = "";
+cart.forEach(c=>{
+total+=Number(c.price);
+box.innerHTML+=`<p>${c.name} - ${c.price}</p>`;
+});
 
-  let total = 0;
-
-  cart.forEach((item, i) => {
-    total += Number(item.price);
-
-    box.innerHTML += `
-      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-        <span>${item.name}</span>
-        <span>${item.price} TL</span>
-      </div>
-    `;
-  });
-
-  totalBox.innerText = "Toplam: " + total + " TL";
+document.getElementById("total").innerText="Toplam: "+total;
 }
 
-function sendWhatsApp() {
-  const settings = Storage.getSettings();
+function sendWhatsApp(){
+let settings = Storage.getSettings();
 
-  let message = "🐞 Uğur Böceği Sipariş:%0A%0A";
+let msg="Sipariş:%0A";
+cart.forEach(c=>{
+msg+=c.name+" "+c.price+"%0A";
+});
 
-  cart.forEach(p => {
-    message += `- ${p.name} : ${p.price} TL%0A`;
-  });
-
-  const total = cart.reduce((a, b) => a + Number(b.price), 0);
-
-  message += `%0AToplam: ${total} TL`;
-
-  window.open(
-    "https://wa.me/" + settings.whatsapp + "?text=" + message,
-    "_blank"
-  );
+window.open("https://wa.me/"+settings.phone+"?text="+msg);
 }
 
-function openCart() {
-  document.getElementById("cart").classList.remove("hidden");
-}
-
-function closeCart() {
-  document.getElementById("cart").classList.add("hidden");
-}
-
-// İlk yükleme
 renderProducts();
 renderCart();
