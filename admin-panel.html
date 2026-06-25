@@ -1,63 +1,241 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Uğur Böceği</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e55555;
+        }
+
+        #list {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .product-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .product-item button {
+            background-color: #e55555;
+            width: auto;
+            padding: 8px 15px;
+            margin: 0;
+        }
+
+        .product-item button:hover {
+            background-color: #d44444;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
-<body style="font-family:Arial">
+<body>
 
-<h2>🐞 Admin Panel</h2>
+<div class="container">
+    <h2>🐞 Admin Panel - Ürün Yönetimi</h2>
 
-<h3>Ürün Ekle</h3>
+    <div class="form-section">
+        <h3>✨ Yeni Ürün Ekle</h3>
+        
+        <div class="form-group">
+            <input id="name" type="text" placeholder="Ürün Adı" maxlength="50">
+            <input id="price" type="number" placeholder="Fiyat (₺)" min="0" step="0.01">
+            <input id="img" type="text" placeholder="Resim URL'si">
+        </div>
+        
+        <button onclick="add()">➕ Ürün Ekle</button>
+    </div>
 
-<input id="name" placeholder="Ürün">
-<input id="price" placeholder="Fiyat">
-<input id="img" placeholder="Resim">
+    <h3>📦 Eklenen Ürünler</h3>
+    <div id="list"></div>
 
-<button onclick="add()">Ekle</button>
-
-<hr>
-
-<div id="list"></div>
+    <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+</div>
 
 <script>
 
-let products = JSON.parse(localStorage.getItem("products")) || [];
+let products = Storage.getProducts();
 
 function save(){
-localStorage.setItem("products",JSON.stringify(products));
+    Storage.saveProducts(products);
 }
 
 function add(){
-products.push({
-name:document.getElementById("name").value,
-price:document.getElementById("price").value,
-img:document.getElementById("img").value
-});
+    const name = document.getElementById("name").value.trim();
+    const price = document.getElementById("price").value.trim();
+    const img = document.getElementById("img").value.trim();
 
-save();
-render();
+    if (!name || !price || !img) {
+        alert("Lütfen tüm alanları doldurunuz!");
+        return;
+    }
+
+    products.push({
+        name: name,
+        price: parseFloat(price),
+        img: img
+    });
+
+    save();
+    render();
+    
+    document.getElementById("name").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("img").value = "";
+    document.getElementById("name").focus();
+    
+    alert(name + " başarıyla eklendi!");
 }
 
 function del(i){
-products.splice(i,1);
-save();
-render();
+    if (confirm("Bu ürünü silmek istediğinizden emin misiniz?")) {
+        const deletedName = products[i].name;
+        products.splice(i, 1);
+        save();
+        render();
+        alert(deletedName + " silindi!");
+    }
 }
 
 function render(){
-let box=document.getElementById("list");
-box.innerHTML="";
+    let box = document.getElementById("list");
+    box.innerHTML = "";
 
-products.forEach((p,i)=>{
-box.innerHTML+=`
-<p>
-${p.name} - ${p.price}
-<button onclick="del(${i})">Sil</button>
-</p>`;
-});
+    if (products.length === 0) {
+        box.innerHTML = '<div class="empty-message">Henüz ürün eklenmemiş. Yukarıdan ürün ekleyiniz.</div>';
+        return;
+    }
+
+    products.forEach((p, i) => {
+        const productDiv = document.createElement("div");
+        productDiv.className = "product-item";
+        productDiv.innerHTML = `
+            <div class="product-info">
+                <div class="product-name">${p.name}</div>
+                <div class="product-price">${parseFloat(p.price).toFixed(2)} ₺</div>
+            </div>
+            <button onclick="del(${i})">🗑️ Sil</button>
+        `;
+        box.appendChild(productDiv);
+    });
 }
 
 render();
