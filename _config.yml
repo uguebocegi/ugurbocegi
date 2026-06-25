@@ -1,8 +1,1 @@
-# GitHub Pages Configuration
-title: Uğur Böceği Mağaza
-description: Uğur Böceği Mağaza
-url: "https://uguebocegi.github.io"
-baseurl: "/ugurbocegi"
-
-# Disable Jekyll processing
-include: [".nojekyll"]
+# GitHub Pages Configuration - Disabled Jekyll for static HTML
