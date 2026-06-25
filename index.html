@@ -1,214 +1,210 @@
 <!DOCTYPE html>
-
 <html lang="tr">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uğur Böceği Giyim</title>
 
-<title>Uğur Böceği</title>
+<style>
+body{margin:0;font-family:Arial;background:#fff7f0}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px;background:#b3001b;color:white}
+.container{max-width:1100px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+.card img{width:100%;height:150px;object-fit:cover}
+.card-content{padding:10px}
+button{padding:10px;border:none;border-radius:8px;cursor:pointer}
+.add{background:#b3001b;color:#fff;width:100%}
+.cart{position:fixed;right:0;top:0;width:300px;height:100%;background:#fff;box-shadow:-5px 0 20px rgba(0,0,0,.2);padding:10px;overflow:auto}
+.hidden{display:none}
 
-<script src="https://cdn.tailwindcss.com"></script>
+.adminPanel{
+position:fixed;inset:0;background:rgba(0,0,0,.6);
+display:none;align-items:center;justify-content:center;
+}
 
-<link rel="stylesheet" href="css/style.css">
-
+.panel{
+background:#fff;padding:20px;width:320px;border-radius:10px;
+}
+</style>
 </head>
 
 <body>
 
-<div id="ladybug-background"></div>
-
-<header class="site-header">
-
-<div class="container">
-
-<div class="logo-area">
-
-<div class="logo-icon">
-🐞
-</div>
-
-<div>
-<h1 id="siteTitle">Uğur Böceği</h1>
-<p id="siteSubtitle">
-Pratik Ev Aletleri
-</p>
-</div>
-
-</div>
-
-<div class="header-actions">
-
-<input
-id="searchInput"
-type="text"
-placeholder="Ürün ara..."
-
->
-
-<button onclick="openCart()">
-Sepet
-</button>
-
-<a href="admin.html">
-Admin
-</a>
-
-</div>
-
-</div>
-
+<header>
+<div>🐞 Uğur Böceği</div>
+<button onclick="openAdmin()">Admin</button>
 </header>
 
-<section class="hero">
-
 <div class="container">
-
-<div class="hero-content">
-
-<h2 id="heroTitle">
-Hayatı Kolaylaştıran
-<span id="heroHighlight">
-Pratik Ev Aletleri
-</span>
-</h2>
-
-<p id="heroDescription">
-
-Uğur Böceği mağazasında
-şık ve kullanışlı ürünleri keşfedin.
-
-</p>
-
+<h2>Ürünler</h2>
+<div class="grid" id="productList"></div>
 </div>
 
-</div>
-
-</section>
-
-<section class="products">
-
-<div class="container">
-
-<div id="productList"
-class="products-grid">
-</div>
-
-</div>
-
-</section>
-
-<div id="cartPanel" class="cart-panel">
-
-<div class="cart-header">
-
+<div class="cart" id="cart">
 <h3>Sepet</h3>
-
-<button onclick="closeCart()">
-✕
-</button>
-
+<div id="cartItems"></div>
+<p id="total"></p>
+<button onclick="sendWhatsApp()">WhatsApp Sipariş</button>
 </div>
 
-<div id="cartItems">
-</div>
+<div class="adminPanel" id="adminPanel">
+<div class="panel">
 
-<div class="cart-footer">
+<h3>Admin Giriş</h3>
+<input id="pass" type="password" placeholder="Şifre">
+<button onclick="login()">Giriş</button>
 
-<div class="cart-total">
+<hr>
 
-Toplam: <span id="totalPrice">
-₺0 </span>
+<h4>Ürün Ekle</h4>
+<input id="p_name" placeholder="Ürün adı">
+<input id="p_price" placeholder="Fiyat">
+<input id="p_img" placeholder="Resim URL">
+<button onclick="addProduct()">Ekle</button>
 
-</div>
+<hr>
 
-<a
-id="whatsappBtn"
-target="_blank">
+<h4>Ayar</h4>
+<input id="phone" placeholder="WhatsApp numara">
+<button onclick="saveSettings()">Kaydet</button>
 
-WhatsApp Sipariş Gönder
+<hr>
 
-</a>
+<h4>Ürünler</h4>
+<div id="adminProducts"></div>
 
-</div>
-
-</div>
-
-<section class="location-section">
-
-<div class="container">
-
-<h2>
-Mağaza Konumu
-</h2>
-
-<div class="map-wrapper">
-
-<iframe
-id="storeMap"
-src="https://www.google.com/maps?q=Bolu+Merkez&output=embed"
-allowfullscreen
-loading="lazy">
-</iframe>
+<button onclick="closeAdmin()">Kapat</button>
 
 </div>
-
-<div class="contact-cards">
-
-<div class="contact-card">
-
-<h3>Telefon</h3>
-
-<p id="storePhoneText">
-0555 394 72 89
-</p>
-
 </div>
 
-<div class="contact-card">
+<script>
+// ================= STORAGE =================
+let products = JSON.parse(localStorage.getItem("products")) || [
+{name:"Blender",price:1500,img:"https://picsum.photos/300?1"},
+{name:"Kahve Makinesi",price:3000,img:"https://picsum.photos/300?2"}
+];
 
-<h3>E-Posta</h3>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-<p id="storeEmailText">
-info@ugurbocegi.com
-</p>
+let settings = JSON.parse(localStorage.getItem("settings")) || {
+phone:"905553947289"
+};
 
+function save(){
+localStorage.setItem("products",JSON.stringify(products));
+localStorage.setItem("cart",JSON.stringify(cart));
+localStorage.setItem("settings",JSON.stringify(settings));
+}
+
+// ================= ÜRÜN =================
+function render(){
+let box=document.getElementById("productList");
+box.innerHTML="";
+products.forEach((p,i)=>{
+box.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<div class="card-content">
+<h4>${p.name}</h4>
+<p>${p.price} TL</p>
+<button class="add" onclick="addCart(${i})">Sepete Ekle</button>
 </div>
+</div>`;
+});
+save();
+}
 
-<div class="contact-card">
+// ================= SEPET =================
+function addCart(i){
+cart.push(products[i]);
+renderCart();
+save();
+}
 
-<h3>Adres</h3>
+function renderCart(){
+let box=document.getElementById("cartItems");
+box.innerHTML="";
+let total=0;
 
-<p id="storeLocationText">
-Bolu Merkez
-</p>
+cart.forEach(c=>{
+total+=Number(c.price);
+box.innerHTML+=`<p>${c.name} - ${c.price} TL</p>`;
+});
 
-</div>
+document.getElementById("total").innerText="Toplam: "+total+" TL";
+}
 
-</div>
+function sendWhatsApp(){
+let msg="Sipariş:%0A";
+cart.forEach(c=>{
+msg+=c.name+" "+c.price+" TL%0A";
+});
 
-</div>
+window.open("https://wa.me/"+settings.phone+"?text="+msg);
+}
 
-</section>
+// ================= ADMIN =================
+function openAdmin(){
+document.getElementById("adminPanel").style.display="flex";
+renderAdmin();
+}
 
-<footer>
+function closeAdmin(){
+document.getElementById("adminPanel").style.display="none";
+}
 
-<div class="ladybug-row">
+function login(){
+if(document.getElementById("pass").value==="1234"){
+alert("Giriş başarılı");
+}else{
+alert("Hatalı şifre");
+}
+}
 
-🐞 🐞 🐞 🐞 🐞 🐞 🐞
+function addProduct(){
+products.push({
+name:document.getElementById("p_name").value,
+price:document.getElementById("p_price").value,
+img:document.getElementById("p_img").value
+});
 
-</div>
+render();
+renderAdmin();
+}
 
-<p>
-© Uğur Böceği
-</p>
+// ================= ADMIN LIST =================
+function renderAdmin(){
+let box=document.getElementById("adminProducts");
+box.innerHTML="";
 
-</footer>
+products.forEach((p,i)=>{
+box.innerHTML+=`
+<div style="display:flex;justify-content:space-between;margin:5px 0">
+<span>${p.name}</span>
+<button onclick="del(${i})">Sil</button>
+</div>`;
+});
+}
 
-<script src="js/storage.js"></script>
+function del(i){
+products.splice(i,1);
+render();
+renderAdmin();
+}
 
-<script src="js/app.js"></script>
+// ================= SETTINGS =================
+function saveSettings(){
+settings.phone=document.getElementById("phone").value;
+save();
+alert("Kaydedildi");
+}
+
+// INIT
+render();
+renderCart();
+</script>
 
 </body>
 </html>
